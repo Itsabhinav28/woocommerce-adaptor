@@ -1,0 +1,31 @@
+const axios = require('axios');
+const config = require('../config/config');
+const logger = require('../utils/logger');
+
+class RegistryService {
+  static async lookupSubscriber(subscriberId, keyId) {
+    try {
+      const response = await axios.get(config.getConfig().registryUrl, {
+        params: { subscriber_id: subscriberId, unique_key_id: keyId }
+      });
+      return response.data;
+    } catch (error) {
+      logger.error('Subscriber lookup failed', error);
+      throw error;
+    }
+  }
+
+  static async validateSubscriber(subscriberId) {
+    try {
+      const response = await axios.get(config.getConfig().registryUrl, {
+        params: { subscriber_id: subscriberId, validate: true }
+      });
+      return response.data.is_valid;
+    } catch (error) {
+      logger.error('Subscriber validation failed', error);
+      return false;
+    }
+  }
+}
+
+module.exports = RegistryService;

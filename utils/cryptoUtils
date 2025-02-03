@@ -1,0 +1,27 @@
+const crypto = require('crypto');
+const { blake2b } = require('blakejs');
+
+class CryptoUtils {
+  static generateKeyPair() {
+    const keyPair = crypto.generateKeyPairSync('ed25519', {
+      publicKeyEncoding: { type: 'spki', format: 'pem' },
+      privateKeyEncoding: { type: 'pkcs8', format: 'pem' }
+    });
+
+    return {
+      publicKey: keyPair.publicKey,
+      privateKey: keyPair.privateKey
+    };
+  }
+
+  static blake2bHash(data, outputLength = 64) {
+    const buffer = typeof data === 'string' 
+      ? Buffer.from(data) 
+      : Buffer.from(JSON.stringify(data));
+    
+    const hash = blake2b(buffer, null, outputLength);
+    return Buffer.from(hash).toString('base64');
+  }
+}
+
+module.exports = CryptoUtils;
