@@ -1,0 +1,18 @@
+{
+  "name": "woocommerce-adaptor",
+  "version": "1.0.0",
+  "description": "WooCommerce ONDC Adaptor",
+  "main": "adapter/app.js",
+  "scripts": {
+    "start": "node adapter/app.js",
+    "dev": "nodemon adapter/app.js"
+  },
+  "dependencies": {
+    "@woocommerce/woocommerce-rest-api": "^1.0.1",
+    "express": "^4.18.2",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
